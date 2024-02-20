@@ -17,10 +17,9 @@ public class InvestorService {
         Investor investor = investorRepository.findById(investorId)
                 .orElseThrow(() -> new EntityNotFoundException("Investor not found with ID: " + investorId));
 
-        // Check PRODUCT condition
+        // Checking Product condition
         for (Product product : investor.getProduct()) {
             if ("RETIREMENT".equals(product.getName())) {
-                // Assuming age is a property of the Investor class
                 if (investor.getAge() <= 65) {
                     throw new ValidationException("Investor must be greater than 65 years old for RETIREMENT product.");
                 }
@@ -29,12 +28,12 @@ public class InvestorService {
             }
         }
 
-        // Check WITHDRAWAL AMOUNT condition
+        // Checking Withdrawel Amount 
         if (withdrawalAmount.compareTo(investor.getBalance()) > 0) {
             throw new ValidationException("Withdrawal amount cannot be greater than current balance.");
         }
 
-        // Check 90% of current BALANCE condition
+        // Checking of 90% of current balance condition
         BigDecimal maxWithdrawal = investor.getBalance().multiply(BigDecimal.valueOf(0.9));
         if (withdrawalAmount.compareTo(maxWithdrawal) > 0) {
             throw new ValidationException("Withdrawal amount cannot exceed 90% of the current balance.");

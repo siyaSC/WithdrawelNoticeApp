@@ -21,7 +21,7 @@ public record Investor(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) L
         this(id, firstName, lastName, address, email, contactNumber, products, null);  // Initialize dateOfBirth to null
     }
 
-    // New constructor with date of birth
+    // New constructor
     public Investor(Long id, String firstName, String lastName, String address, String email, String contactNumber, List<Product> products, Long dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
@@ -36,7 +36,7 @@ public record Investor(@Id @GeneratedValue(strategy = GenerationType.IDENTITY) L
     // Method to calculate the investor's age
     public int getAge() {
         if (dateOfBirth == null) {
-            return -1;  // Or handle the case where date of birth is not available
+            return -1; 
         }
 
         LocalDate currentDate = LocalDate.now();
